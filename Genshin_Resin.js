@@ -8,13 +8,8 @@ const config = new Array()
 
 // ========= ↑将生成的配置粘贴这以上↑ ========
 
-
-
 let resin = await getData()
 let clock = await getClock()
-
-
-
 
 let widget = await createWidget()
 if (config.runsInWidget) {
@@ -23,9 +18,7 @@ if (config.runsInWidget) {
     widget.presentMedium()
 }
 
-
 Script.complete()
-
 
 async function createWidget() {
     let appIcon = await loadAppIcon()
@@ -109,26 +102,21 @@ async function getData() {
         "Cookie": config[2],
     }
 
-
     let resp = await req.loadJSON()
     let data = resp.data
 
-
     return [data.current_resin, data.resin_recovery_time]
 }
-
 
 async function getNextTime() {
     let time20 = (await getRounding()) * (8 * 60 * 1000) - resin[1]
     return time20
 }
 
-
 async function getRounding() {
     let num = ~~(resin[0] / 20) + 1
     return 20 * num
 }
-
 
 async function getClock() {
     let timeNow = Date.now()
@@ -138,13 +126,10 @@ async function getClock() {
     let time20Recovery = new Date(timeNow + cal)
     let time40Recovery = new Date(timeNow + cal + 20 * (8 * 60 * 1000))
 
-
-
-
-    return ["Next 20 at " + ("0" + time20Recovery.getHours()).slice(-2) + ":" + ("0" + time20Recovery.getMinutes()).slice(-2), "Next 40 at " + ("0" + time40Recovery.getHours()).slice(-2) + ":" + ("0" + time40Recovery.getMinutes()).slice(-2), "Full 160
- at " + ("0" + timeRecovery.getHours()).slice(-2) + ":" + ("0" + timeRecovery.getMinutes()).slice(-2)]
+    return ["Next 20 at " + ("0" + time20Recovery.getHours()).slice(-2) + ":" + ("0" + time20Recovery.getMinutes()).slice(-2), 
+            "Next 40 at " + ("0" + time40Recovery.getHours()).slice(-2) + ":" + ("0" + time40Recovery.getMinutes()).slice(-2), 
+            "Full 160 at " + ("0" + timeRecovery.getHours()).slice(-2) + ":" + ("0" + timeRecovery.getMinutes()).slice(-2)]
 }
-
 
 async function loadAppIcon() {
   // Base64 img
